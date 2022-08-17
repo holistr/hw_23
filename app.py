@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from werkzeug.exceptions import BadRequest
 
 app = Flask(__name__)
@@ -51,5 +51,8 @@ def perform_query():
     if not os.path.exists(os.path.join(DATA_DIR, file_name)):
         raise BadRequest
 
-    return app.response_class('', content_type="text/plain")
+    return jsonify(do_query(data))
 
+
+if __name__ == "__main__":
+    app.run()
